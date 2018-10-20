@@ -1,0 +1,35 @@
+d = {}
+n = int(input())
+for i in range(n):
+    a = list(input().split())
+    if len(a) == 1:
+        d[a[0]] = []
+    else:
+        d[a[0]] = a[2:]
+        for i in a[2:]:
+            if i not in d:
+                d[i] = []
+
+# print(d)
+def path(predok, class2):
+    if predok and class2 not in d.keys():
+        return 'No'
+    elif predok == class2:
+        return 'Yes'
+    elif predok in d[class2]:
+        return 'Yes'
+    elif predok not in d[class2]:
+        for elem in d[class2]:
+            if predok not in d[class2]:
+                class2 = elem
+                # print(d[elem], 'is elem')
+                # print(class2, 'is class 2')
+                path(predok, class2)
+                if path(predok, class2) == 'Yes':
+                    return 'Yes'
+    return 'No'
+q = int(input())
+for i in range(q):
+    predok, class2 = list(input().split())
+    # print(predok, class2)
+    print(path(predok, class2))
